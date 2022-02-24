@@ -6,20 +6,25 @@ contract Users {
   enum Gender { Male, Female, Other}
 
     struct AppUser {
-        string first_name;
-        string last_name;
+        uint id;
         string username;
-        Gender gender;
+        Gender gender; // pass gender as unum
     }
 
-    AppUser public app_user;
+    uint id_counter; // to increment user id
 
-    function setUpUser(string memory _first_name, string memory _last_name, string memory _username, uint8 _gender) public {
-        app_user = AppUser(_first_name, _last_name, _username, Gender(_gender));
+    AppUser[] public app_users;
+
+    function setUpUser(string memory _username, uint _gender) public {
+      /* validate enum values are within range */
+        require(uint(Gender.Other) >= _gender);
+        app_users.push(AppUser(id_counter, _username, Gender(_gender)));
+        id_counter += 1;
     }
 
-    function getAppUser() public view returns(AppUser memory) {
-      return app_user;
+    function getAppUser(uint _id) public view returns(AppUser memory) {
+      return app_users[_id];
     }
+
 
 }
