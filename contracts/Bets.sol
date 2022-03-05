@@ -1,24 +1,19 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
 
+import "./Users.sol";
+
 contract Bets {
-  /* create mapping for addresses */
-  mapping (address => uint) public balances;
 
   constructor() public {
-    balances[tx.origin] = 10000;
+    Users usersInstance = new Users();
   }
-
 
   struct Bet {
     uint bet_id;
     string bet_name;
     address player1;
-    /* uint player1_deposit;
-    string player1_prediction; */
     address player2;
-    /* uint player1_deposit;
-    string player2_prediction; */
     bool bet_status;
     string result;
   }
@@ -26,7 +21,7 @@ contract Bets {
   Bet[] public placed_bets;
   uint bet_id_count;
 
-  event Transfer(address _from, address  _to, uint256 _value);
+  /* event Transfer(address _from, address  _to, uint256 _value);
 
   function sendCoin(address receiver, uint amount) public returns(bool sufficient) {
     if (balances[msg.sender] < amount) return false;
@@ -34,7 +29,7 @@ contract Bets {
     balances[receiver] += amount;
     emit Transfer(msg.sender, receiver, amount);
     return true;
-  }
+  } */
 
   function placeBet(string memory _bet_name, address _player1, address _player2) public {
     /* increment bet id */

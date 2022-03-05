@@ -12,9 +12,15 @@ contract Users {
         address wallet;
     }
 
+
     uint id_counter; // to increment user id
 
     AppUser[] public app_users;
+
+    constructor() public {
+      /* create The House which is this contract */
+      app_users.push(AppUser(0, "The House", Gender.Other, address(this)));
+    }
 
     function setUpUser(string memory _username, uint _gender, address _wallet) public {
       /* validate enum values are within range */
@@ -33,6 +39,5 @@ contract Users {
       uint balance = user.wallet.balance;
       return balance;
     }
-
 
 }
